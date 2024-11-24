@@ -1,0 +1,150 @@
+--> DİZİN YAPISI
+
+    com.aykutmurkit altında olması gereken dizin yapısı aşağıdaki gibidir.
+
+    controller
+    service
+    entity
+    repository
+    starter
+
+    starter içinde spring app'i ayağa kaldıran main method bulunmaktadır.
+
+
+--> @RestController
+
+    Controller tanımlaması yapmak için kullanılır
+
+
+--> @service
+
+    Service tanımlaması yapmak için kullanılır.
+
+--> Repository 
+
+    Repository tanımlaması yapmak için kullanılır.
+
+--> @RequestMapping
+
+    Controller için kök adres tanımlaması için kullanılır. Rest Controller ile sınıf tanımlamasının üstüne yaparsın.
+
+    EX: 
+
+        @RequestMapping("/rest/api")
+
+--> @GetMapping
+
+    Method üstünde kullanılan anotasyondur ve end point oluşturmak için kullanılır 
+
+    EX: 
+
+        @GetMapping(path = "/employee-list")
+        public List<Employee> getAllEmployeeList(){
+            return null;
+        }
+
+--> @Autowired
+
+    Context Application oluşturulmuş olan bean'i çekmek için yani dependency injention için kullanılır 
+
+    EX: 
+
+        @Autowired
+        private EmployeeService employeeService;
+
+
+--> @Configuration
+
+    Configurasyon sınıflarını belirtmek için kullanılır
+
+    EX:     
+
+        @Configuration
+        public class AppConfig{
+            
+            @Bean
+            public List<Employee> employeeList(){
+                List<Employee> employeeList = new ArrayList<>();
+                employeeList.add(new Employee("1","aykutmurkit"));
+                return employeeList;
+            }
+        }
+
+        // kullanmak için diğer sınıftan 
+
+        @Autowired
+        private List<Employee> employeeList;
+
+--> @Component
+
+    Genel bir Spring bileşeni tanımlamak için kullanılır. @Service , @RestController gibi anotasyonlar bundan miras alır.
+
+--> @ComponentScan
+
+    Spring, belirtilen paketi ve alt paketlerini tarayarak, anotasyonlarla işaretlenmiş sınıfları (@Component, @Service, @Repository, @Controller) tespit eder.
+
+    EX: 
+
+        @ComponentScan(basePackage = {"com.aykutmurkit"})
+        @SpringBootApplication
+        public class SpringRestApiApplication
+
+        ...
+
+--> @PathVariable
+
+    URL üzerinden veri almak için kullanıyoruz
+
+    EX: 
+
+        @GetMapping(path = "/employee/{id}")
+        public Employee getEmployeeById(@PathVariable(name = "id", required = true) String id){
+            return employeeService.getEmployeeByID(id);
+        }
+
+--> @RequestParam
+
+    Spring Framework'de kullanılan bir anotasyondur ve genellikle HTTP GET veya POST isteklerinde,
+    URL parametrelerini (query parameter) veya form verilerini bir denetleyici (controller) metodunun parametresine bağlamak için kullanılır.
+
+    EX : 
+
+        @GetMapping(path = "with-params")
+        public List<Employee> getEmployeeWithParams ( @RequestParam(name = "firstName", required = false) String firstName,
+                                                      @RequestParam(surname = "lastName",required = false) String lastName) {
+
+            return employeeService.getEmployeeWithParams(firstName , lastName);
+        }
+
+--> @PostMapping
+
+    @PostMapping, HTTP POST isteklerini Spring denetleyici metotlarına bağlamak için kullanılır.
+
+    EX : 
+
+        @PostMapping(path ="/save-employee")
+        public Employee saveEmployee(@RequestBody Employee employee){
+            return employeeService.saveEmployee(employee);
+        }
+
+--> @DeleteMapping
+
+    @DeleteMapping, Spring Framework'de bir denetleyici (controller) metodunu bir HTTP DELETE isteğiyle eşleştirmek için kullanılan bir anotasyondur.
+
+    EX : 
+
+        @DeleteMapping(path = "/delete-employee/{id}")
+        public boolean deleteEmployee(@PathVariable(name = id) String id){
+            return employeeService.deleteEmployee(id);
+        }
+
+--> @PutMapping
+
+    @PutMapping, Spring Framework'de bir denetleyici (controller) metodunu bir HTTP PUT isteğiyle eşleştirmek için kullanılan bir anotasyondur.
+
+    EX : 
+
+        @PutMapping(path = "/update-employee/{id}")
+        public Employee updateEmployee(@PathVariable(name = id, required = true) String id, @RequestBody UpdateEmployeeRequest request){
+            return employeeService.updateEmployee(id, request)
+        }

@@ -1,0 +1,83 @@
+--> SPRING DATA JPA
+
+    Spring Data JPA, Spring Framework'ün bir modülü olup, Java Persistence API (JPA) teknolojisini kullanarak uygulamalarda veri erişimini kolaylaştıran bir araçtır. 
+    Spring Data JPA, veritabanı işlemleri için JPA'yı basitleştirir ve standart CRUD (Create, Read, Update, Delete) operasyonlarını minimal kod ile gerçekleştirmeyi sağlar.
+
+
+--> @Entity
+
+    @Entity anotasyonu, bir sınıfın JPA tarafından yönetilen bir varlık (entity) olduğunu belirtir. Bu anotasyon, bir Java sınıfını veritabanındaki bir tabloya eşler.
+
+
+--> @Table
+
+    @Table anotasyonu, bir sınıfın hangi tabloyla eşleşeceğini veya tabloyla ilgili özel yapılandırmaları belirtmek için kullanılır. @Entity anotasyonuyla birlikte kullanılır.
+
+--> @Id 
+
+    @Id, bir sınıfın hangi alanının (field) veritabanı tablosunda birincil anahtar (primary key) olarak kullanılacağını belirtmek için kullanılır.
+
+--> @GeneratedValue
+
+    @GeneratedValue, birincil anahtarın nasıl oluşturulacağını belirtmek için kullanılır. 
+    Örneğin, birincil anahtar veritabanı tarafından otomatik olarak oluşturulabilir veya elle atanabilir.
+
+    EX : 
+
+    @Entity
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class Student {
+        
+        @Id 
+        @GeneratedValue(strategy = generationType.IDENTITY)
+        private Integer id;
+
+        @Column(name = "first_name", nullable = false)
+        private String firstName;
+
+        @Column(name = "last_name", nullable = false)
+        private String lastName;
+        
+        @Column(name = "birth_of_date", nullable = true)
+        private Date birthOfDate;
+    }
+
+--> @EntityScan
+
+    @EntityScan, Spring Boot uygulamalarında, JPA varlıklarının (entity) bulunduğu paketleri belirtmek için kullanılan bir anotasyondur. 
+    Bu anotasyon, Spring'in @Entity ile işaretlenmiş sınıfları bulmasını ve doğru şekilde taramasını sağlar.
+
+    EX : 
+
+        @EntityScan(basePackage = "com.aykutmurkit")
+        @SpringBootApplication
+        public class SpringDataJpaApplication{
+            ...
+        }
+
+--> application.properties
+
+    application.properties dosyası, Spring Boot uygulamalarında konfigürasyon ayarlarını merkezi bir noktada tutmak için kullanılır. 
+    Veritabanı bağlantılarından, uygulama portuna, logging ayarlarından, Spring Boot'un genel özelliklerine kadar birçok farklı konfigürasyon bu dosyada yapılabilir.
+
+    spring.datasource.url=jdbc:mysql://localhost:3306/mydb
+    spring.datasource.username=root
+    spring.datasource.password=root
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+    spring.jpa.hibernate.ddl-auto=update
+    spring.jpa.show-sql=true
+    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+--> @Repository
+
+    @Repository: Bu sınıfın veritabanı işlemlerini gerçekleştiren bir bileşen olduğunu belirtir.
+
+    EX: 
+
+        @Repository
+        public interface StudentRepository extends JpaRepository<Student, Integer>{
+            
+        }
