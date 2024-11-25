@@ -1,0 +1,25 @@
+
+--> @OnetoOne 
+
+    EX : 
+
+        Customer - Address
+
+
+--> @OneToMany
+
+    EX :
+
+        Department - Employee
+
+@ManyToOne
+
+    EX : 
+
+        Employee - Department
+
+@ManyToMany
+
+    EX : 
+
+        Student - Course

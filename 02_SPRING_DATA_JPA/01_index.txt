@@ -81,3 +81,25 @@
         public interface StudentRepository extends JpaRepository<Student, Integer>{
             
         }
+
+--> @JsonFormat(pattern="yyyy-MM-dd")
+
+    doğum günü gibi bilgileri alırken kullanılır. entity sınıfında 
+
+
+--> @DateTimeFormat(iso = ISO.DATE)
+
+    Entity sınıfında doğum günü gibi bilgileri alırken kullanılır. ISO. XXX farklı değerleri var.
+
+--> Service katmanında find yaparken obje optional ile dönülür 
+
+    EX : 
+
+        @Override
+        public Student getStudentById(Integer id){
+            Optional<Student> optional = StudentRepository.findById(id);
+            if(optional.isPresent()){
+                return optional.get();
+            }
+            return null; 
+        }

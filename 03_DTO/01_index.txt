@@ -1,0 +1,48 @@
+--> DTO?
+
+--> DTOStudent
+
+    response için kullanılan DTO
+
+--> DTOStudentIU
+
+    request için kullanılna insert ve update için kullanılan 
+
+--> BeanUtils
+
+    Apache Commons BeanUtils, Apache Commons ailesine ait bir kütüphanedir ve Java Bean nesneleriyle çalışmayı kolaylaştırmak için geliştirilmiştir.
+
+    EX : 
+
+        BeanUtils.copyProperties(DTOStudentIU, student);
+
+        Özellikle DTO (Data Transfer Object) ve Entity sınıfları arasında veri taşırken sıklıkla kullanılır.
+
+--> @Query
+
+    HQL : sınıfın ismi ve değişlken isimleri kullanılarak sorgular yazılır.
+    
+        EX : 
+
+        @Query(value = "from Student", nativeQuery = false)
+        List<Student> findAllStudent();
+
+
+        EX : 
+
+        with parameter
+
+        @Query(value = "from Student s where s.id = studentId")
+        Student findStudentById(Integer studentId);
+
+        @Query(value = "from Student s where s.id = studentId")
+        Student findStudentById(Integer studentId);
+
+    SQL : tablo ismi ve tablo içerisidki kolon isimleri kullanılarak sorgular yazılır.
+
+        EX : 
+
+        @Query(value = "select * from student.student", nativeQuery = true)
+        List<Student> findAllStudent();
+
+   

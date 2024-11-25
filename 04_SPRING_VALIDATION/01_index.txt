@@ -1,0 +1,81 @@
+
+--> SPRING BOOT VALIDATION
+
+    Spring Boot validation, veri doğrulama işlemlerini kolaylaştırmak için kullanılan bir mekanizmadır. 
+    Spring Boot, Java Bean Validation API'si olan Jakarta Bean Validation (eski adıyla Hibernate Validator) üzerine kurulu bir yapıyı destekler. 
+    Validation, gelen isteklerdeki (request body, query params, vb.) veya uygulama içinde kullanılan verilerin doğru ve beklenen formatta olmasını sağlamaya yarar.
+
+--> BLANCK, , NULL , EMPTY FARKI
+
+    blanck :  Değer atanmış, yalnızca boşluk karakteri. String value = " ";
+
+    null : Değer atanmamış, referans yok .String value = null;
+
+    empty :Değer atanmış, ancak içerik yok. String value = "";
+
+    empty collection : Koleksiyon tanımlı, eleman yok. List<String> list = new ArrayList<>();
+
+
+
+    @NotNull	Alanın null olmamasını sağlar.
+    @NotEmpty	Alanın boş veya null olmamasını sağlar (koleksiyonlar için).
+    @NotBlank	String alanın boş olmamasını sağlar (boşluklar geçerli değildir).
+    @Size	String veya koleksiyonların boyutunu sınırlar.
+    @Min(value)	Sayısal alanın minimum değerini belirtir.
+    @Max(value)	Sayısal alanın maksimum değerini belirtir.
+    @Pattern(regex)	String alanın belirtilen regex desenine uymasını sağlar.
+    @Email	E-posta formatını doğrular.
+    @Positive	Pozitif bir sayı olmasını sağlar.
+    @Negative	Negatif bir sayı olmasını sağlar.
+    @Future	Tarihin gelecekte olmasını sağlar.
+    @Past	Tarihin geçmişte olmasını sağlar.
+    @Valid	Nested (iç içe) nesneler için doğrulama yapılmasını sağlar.
+    .
+    .
+    .
+
+    EX : 
+    
+        Bu anotasyonların çalışması için @Valid anostasyonunu kullanmak zorundasın. Yukarıdaki anotasyonlarda dto içinde fieldların üstüne bulunuyor...
+
+        @PostMapping(path = "/save")
+        public DtoStudent saveStudent(@RequestBody @Valid DtoStudent DTOStudentIU){
+            return studentService.saveStudent(DTOStudentIU);
+        }
+
+    EX : 
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        public class DtoStudentIU {
+
+            @NotEmpty(message = "firstName alanı boş bırakılamaz!")
+            @Min(Value = 3)
+            @Max(Value = 20)
+            @Size(min = 3 , max = 20)
+            private String firstName;
+
+            private String lastName;
+            private Date birthOfDate;
+
+
+        }
+
+
+
+    controller üzerinde dto üzerinden validasyon yapıyorum daha en başında yaparak hız kazanırız.
+
+    burada fırtalına hatalar consola basılır ama 
+
+    exception tipi : MethodArgumentNotValidException ' dır
+
+
+--> FIRLATILAN HATALARI NASIL YAKALARIZ 
+
+    exception isimli bir paket açarız ve oraya sınıf açarız ismi public class GlobalExceptionHandler { } olur 
+
+    burada global bir hata yakalama yapılıyor ancak bunu buraya yazmak güç daha sonra halledeceğim 
+    
+
+

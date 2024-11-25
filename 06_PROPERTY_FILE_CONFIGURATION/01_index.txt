@@ -1,0 +1,36 @@
+
+--> application.properties
+
+
+--> @PropertySource
+
+
+    EX :
+
+        @PropertySource(value="classpath:app.properties)
+        public class SpringDahaJpaApplication {
+            .
+            .
+            .
+        }
+
+        bu şekilde application.properties değilse başka bir properties dosyasını kullarak uygulamayı ayağa kaldırabilirsin
+
+
+
+--> @Value
+
+    @Data
+    public class GlobalProperties { 
+
+        @Value("${spring.datasource.url}")
+        private String Url;
+
+        @Value("${spring.datasource.username}")
+        private String username;
+
+    }
+
+--> ConfigurationProperties 
+
+    
